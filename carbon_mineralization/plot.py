@@ -1,5 +1,7 @@
 import sys
 import os
+import re
+import shutil
 try:
   pflotran_dir = os.environ['PFLOTRAN_DIR']
 except KeyError:
