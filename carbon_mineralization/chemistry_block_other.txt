@@ -6,7 +6,7 @@
     CH2O(aq)
     CO2(aq)
   /
-  DATABASE /home/hamm495/software/pflotran/database/cybernetic.dat
+  DATABASE ./chem_database.dat
   LOG_FORMULATION
   ACTIVITY_COEFFICIENTS TIMESTEP
   OUTPUT
