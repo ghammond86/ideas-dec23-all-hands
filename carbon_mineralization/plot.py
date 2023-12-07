@@ -14,20 +14,15 @@ import matplotlib
 import matplotlib.pyplot as plt
 import math
 import pflotran as pft
-from fix_small_numbers import fix_small_numbers
 
-scale_string = 'linear'
-if len(sys.argv) > 1:
-    scale_string = sys.argv[1]
-    if not (scale_string == 'linear' or scale_string == 'log'):
-        print('\nERROR: The second argument to {} '.format(sys.argv[0]) +
-              'must be either "linear" or "log".\n')
-        sys.exit(0)
-
-observation_filename = 'carbon_mineralization-obs-0.pft'
-fix_small_numbers(observation_filename)
-
-legend_fontsize = 'small'
+def fix_small_numbers(filename):
+    swap = re.compile(r'(?P<pre>\s+[0-9]+\.[0-9]*)(?P<post>-[0-9]{3})')
+    f2 = open(filename+'.tmp','w')
+    for line in open(filename,'r'):
+        f2.write(swap.sub('\g<pre>E\g<post>',line))
+    f2.close()
+    shutil.copy(filename+'.tmp',filename)
+    os.remove(filename+'.tmp')
 
 def plot_aqueous(plt,filename,scale_string):
     plt.xlabel('Time [d]')
@@ -73,6 +68,18 @@ def plot_aqueous(plt,filename,scale_string):
     legend.get_frame().set_fill(False)
     legend.draw_frame(False)
 
+scale_string = 'linear'
+if len(sys.argv) > 1:
+    scale_string = sys.argv[1]
+    if not (scale_string == 'linear' or scale_string == 'log'):
+        print('\nERROR: The second argument to {} '.format(sys.argv[0]) +
+              'must be either "linear" or "log".\n')
+        sys.exit(0)
+
+observation_filename = 'carbon_mineralization-obs-0.pft'
+fix_small_numbers(observation_filename)
+
+legend_fontsize = 'small'
 aq_labels = []
 aq_labels.append('O2(aq)')
 aq_labels.append('NO3-')
