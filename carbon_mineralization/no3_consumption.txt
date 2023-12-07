@@ -1,0 +1,10 @@
+    REACTION CH2O(aq) + 2 NO3- <-> 2 NO2- + CO2(aq) + H2O
+    RATE_CONSTANT 2.d-9
+    MONOD
+      SPECIES_NAME NO3-
+      HALF_SATURATION_CONSTANT 1.d-4
+    /
+    MONOD
+      SPECIES_NAME CH2O(aq)
+      HALF_SATURATION_CONSTANT 1.d-4
+    /

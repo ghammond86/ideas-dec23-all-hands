@@ -1,0 +1,11 @@
+    # neglect the 4/3 H+ consumption
+    REACTION CH2O(aq) + 4/3 NO2- <-> 2/3 N2(aq) + CO2(aq) + 5/3 H2O
+    RATE_CONSTANT 1.d-8
+    MONOD
+      SPECIES_NAME NO2-
+      HALF_SATURATION_CONSTANT 1.d-4
+    /
+    MONOD
+      SPECIES_NAME CH2O(aq)
+      HALF_SATURATION_CONSTANT 1.d-4
+    /

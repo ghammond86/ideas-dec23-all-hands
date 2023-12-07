@@ -1,0 +1,15 @@
+  PRIMARY_SPECIES
+    O2(aq)
+    NO3-
+    NO2-
+    N2(aq)
+    CH2O(aq)
+    CO2(aq)
+  /
+  DATABASE /home/hamm495/software/pflotran/database/cybernetic.dat
+  LOG_FORMULATION
+  ACTIVITY_COEFFICIENTS TIMESTEP
+  OUTPUT
+    FREE_ION
+    ALL
+  /

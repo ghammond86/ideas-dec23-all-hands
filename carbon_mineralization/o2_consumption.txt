@@ -1,0 +1,10 @@
+    REACTION CH2O(aq) + O2(aq) <-> CO2(aq) + H2O
+    RATE_CONSTANT 1.d-8
+    MONOD
+      SPECIES_NAME O2(aq)
+      HALF_SATURATION_CONSTANT 1.d-4
+    /
+    MONOD
+      SPECIES_NAME CH2O(aq)
+      HALF_SATURATION_CONSTANT 1.d-4
+    /
