@@ -15,16 +15,19 @@ SUBSURFACE
 CHEMISTRY
   EXTERNAL_FILE chemistry_block_other.txt
   MICROBIAL_REACTION
+    EXTERNAL_FILE o2_consumption.txt
     EXTERNAL_FILE inhibition_by_lack_of_ch2o.txt
     EXTERNAL_FILE inhibition_by_lack_of_o2.txt
   /
   
   MICROBIAL_REACTION
+    EXTERNAL_FILE no3_consumption.txt
     EXTERNAL_FILE inhibition_by_lack_of_ch2o.txt
     EXTERNAL_FILE inhibition_by_lack_of_no3.txt
   /
   
   MICROBIAL_REACTION
+    EXTERNAL_FILE no2_consumption.txt
     EXTERNAL_FILE inhibition_by_lack_of_ch2o.txt
     EXTERNAL_FILE inhibition_by_lack_of_no2.txt
   /
