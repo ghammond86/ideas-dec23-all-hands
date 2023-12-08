@@ -18,8 +18,9 @@ if len(sys.argv) == 1:
     sys.exit(0)
 
 prefix = sys.argv[1]
-os.system(f'$PFLOTRAN_DIR/src/pflotran/pflotran -input_prefix {prefix} | '+
-          f'tee {prefix}.stdout')
+os.system(f'$PFLOTRAN_DIR/src/pflotran/pflotran -input_prefix {prefix} '+
+          f'2>&1 > {prefix}.stdout')
+os.system(f'tail -30 {prefix}.stdout')
 savefig = True
 yscale = 'linear'
 plot_results(prefix+'-obs-0.pft',yscale,savefig)
