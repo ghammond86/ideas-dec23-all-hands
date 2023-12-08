@@ -93,7 +93,10 @@ def plot_results(filename,yscale='linear',savefig=False):
 
     f = plt.figure(figsize=(10,6))
 
-    plt.title('Carbon Mineralization Time History')
+    title = 'Carbon Mineralization Time History'
+    if yscale == 'log':
+        title = title + ' (log scale)'
+    plt.title(title)
     plot_aqueous(plt,filename,yscale)
 
     f.subplots_adjust(hspace=0.2,wspace=0.10,
