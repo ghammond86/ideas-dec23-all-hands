@@ -1,0 +1,36 @@
+#Description: Batch organic carbon mineralization by O2(aq), NO3- and NO2-
+
+SIMULATION
+  SIMULATION_TYPE SUBSURFACE
+  PROCESS_MODELS
+    SUBSURFACE_TRANSPORT transport
+      MODE GIRT
+    /
+  /
+END
+
+SUBSURFACE
+
+#=========================== chemistry ========================================
+CHEMISTRY
+  EXTERNAL_FILE chemistry_block_other.txt
+  MICROBIAL_REACTION
+    EXTERNAL_FILE o2_consumption.txt
+  /
+  
+  MICROBIAL_REACTION
+    EXTERNAL_FILE no3_consumption.txt
+  /
+  
+  MICROBIAL_REACTION
+    EXTERNAL_FILE no2_consumption.txt
+  /
+END
+
+EXTERNAL_FILE subsurface_block_other.txt
+
+TIME
+  FINAL_TIME 180. d
+END
+
+END_SUBSURFACE
