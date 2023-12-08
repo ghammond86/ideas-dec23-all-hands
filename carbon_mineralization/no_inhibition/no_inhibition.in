@@ -13,27 +13,27 @@ SUBSURFACE
 
 #=========================== chemistry ========================================
 CHEMISTRY
-  EXTERNAL_FILE chemistry_block_other.txt
+  EXTERNAL_FILE ../chemistry_block_other.txt
   MICROBIAL_REACTION
-    EXTERNAL_FILE o2_consumption.txt
+    EXTERNAL_FILE ../o2_consumption.txt
   /
   
   MICROBIAL_REACTION
-    EXTERNAL_FILE no3_consumption.txt
+    EXTERNAL_FILE ../no3_consumption.txt
   /
   
   MICROBIAL_REACTION
-    EXTERNAL_FILE no2_consumption.txt
+    EXTERNAL_FILE ../no2_consumption.txt
   /
 END
-
-EXTERNAL_FILE subsurface_block_other.txt
 
 #=========================== times ============================================
 TIME
-  FINAL_TIME 180.d0 d
+  FINAL_TIME 10.d0 d
   INITIAL_TIMESTEP_SIZE 1.d0 h
   MAXIMUM_TIMESTEP_SIZE 5.d-2 d
 END
+
+EXTERNAL_FILE ../subsurface_block_other.txt
 
 END_SUBSURFACE
