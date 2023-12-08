@@ -5,7 +5,7 @@
       <ParameterList name="generate mesh parameters" type="ParameterList">
         <Parameter name="number of cells" type="Array(int)" value="{100,1,1}" />
         <Parameter name="domain low coordinate" type="Array(double)" value="{ 0, 0, 0}" />
-        <Parameter name="domain high coordinate" type="Array(double)" value="{100, 2,1.5}" />
+        <Parameter name="domain high coordinate" type="Array(double)" value="{100, 1, 1}" />
       </ParameterList>
     </ParameterList>
   </ParameterList>
@@ -14,25 +14,25 @@
     <ParameterList name="subsurface domain" type="ParameterList">
       <ParameterList name="region: box" type="ParameterList">
         <Parameter name="low coordinate" type="Array(double)" value="{ 0, 0, 0}" />
-        <Parameter name="high coordinate" type="Array(double)" value="{100, 2,1.5}" />
+        <Parameter name="high coordinate" type="Array(double)" value="{100, 1, 1}" />
       </ParameterList>
     </ParameterList>
     <ParameterList name="west" type="ParameterList">
       <ParameterList name="region: box" type="ParameterList">
         <Parameter name="low coordinate" type="Array(double)" value="{ 0, 0, 0}" />
-        <Parameter name="high coordinate" type="Array(double)" value="{ 0, 2,1.5}" />
+        <Parameter name="high coordinate" type="Array(double)" value="{ 0, 1, 1}" />
       </ParameterList>
     </ParameterList>
     <ParameterList name="east" type="ParameterList">
       <ParameterList name="region: box" type="ParameterList">
         <Parameter name="low coordinate" type="Array(double)" value="{100, 0, 0}" />
-        <Parameter name="high coordinate" type="Array(double)" value="{100, 2,1.5}" />
+        <Parameter name="high coordinate" type="Array(double)" value="{100, 1, 1}" />
       </ParameterList>
     </ParameterList>
     <ParameterList name="outlet" type="ParameterList">
       <ParameterList name="region: box" type="ParameterList">
         <Parameter name="low coordinate" type="Array(double)" value="{99.5, 0, 0}" />
-        <Parameter name="high coordinate" type="Array(double)" value="{100, 2,1.5}" />
+        <Parameter name="high coordinate" type="Array(double)" value="{100, 1, 1}" />
       </ParameterList>
     </ParameterList>
   </ParameterList>
