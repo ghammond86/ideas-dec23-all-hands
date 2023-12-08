@@ -6,3 +6,4 @@
 *.stdout
 *.regression
 *.png
+*.xmf
