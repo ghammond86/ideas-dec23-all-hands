@@ -88,19 +88,19 @@ def plot_aqueous(plt,filename,scale_string):
     legend.get_frame().set_fill(False)
     legend.draw_frame(False)
 
-def plot_results(filename,scale_string,save):
+def plot_results(filename,yscale='linear',savefig=False):
     fix_small_numbers(filename)
 
     f = plt.figure(figsize=(10,6))
 
     plt.title('Carbon Mineralization Time History')
-    plot_aqueous(plt,filename,scale_string)
+    plot_aqueous(plt,filename,yscale)
 
     f.subplots_adjust(hspace=0.2,wspace=0.10,
                       bottom=.12,top=.92,
                       left=.1,right=.85)
-    if save:
-        plt.savefig(filename.split('-obs')[0].strip()+'-'+scale_string+'.png')
+    if savefig:
+        plt.savefig(filename.split('-obs')[0].strip()+'-'+yscale+'.png')
     else:
         plt.show()
 
