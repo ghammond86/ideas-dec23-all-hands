@@ -1,0 +1,228 @@
+SIMULATION
+  SIMULATION_TYPE SUBSURFACE
+  PROCESS_MODELS
+    SUBSURFACE_TRANSPORT transport
+      MODE GIRT
+    /
+  /
+END
+
+SUBSURFACE
+
+#=========================== chemistry ========================================
+CHEMISTRY
+  PRIMARY_SPECIES
+    O2(aq)
+    NO3-
+    NO2-
+    N2(aq)
+    CH2O(aq)
+    CO2(aq)
+  /
+  DATABASE ../carbon_mineralization/chem_database.dat
+  LOG_FORMULATION
+  ACTIVITY_COEFFICIENTS TIMESTEP
+  OUTPUT
+    FREE_ION
+    ALL
+  /
+
+  MICROBIAL_REACTION
+    REACTION CH2O(aq) + O2(aq) <-> CO2(aq) + H2O
+    RATE_CONSTANT 1.d-10
+    MONOD
+      SPECIES_NAME O2(aq)
+      HALF_SATURATION_CONSTANT 1.d-5
+    /
+    MONOD
+      SPECIES_NAME CH2O(aq)
+      HALF_SATURATION_CONSTANT 1.d-5
+    /
+    INHIBITION
+      SPECIES_NAME CH2O(aq)
+      TYPE THRESHOLD 1.d15
+      INHIBITION_CONSTANT 1.d-10
+    /
+    INHIBITION
+      SPECIES_NAME O2(aq)
+      TYPE THRESHOLD 1.d15
+      INHIBITION_CONSTANT 1.d-10
+    /
+  /
+
+  MICROBIAL_REACTION
+    REACTION CH2O(aq) + 2 NO3- <-> 2 NO2- + CO2(aq) + H2O
+    RATE_CONSTANT 2.d-11
+    MONOD
+      SPECIES_NAME NO3-
+      HALF_SATURATION_CONSTANT 1.d-5
+    /
+    MONOD
+      SPECIES_NAME CH2O(aq)
+      HALF_SATURATION_CONSTANT 1.d-5
+    /
+    INHIBITION
+      SPECIES_NAME O2(aq)
+      TYPE THRESHOLD 1.d8
+      INHIBITION_CONSTANT -1.d-7
+    /
+    INHIBITION
+      SPECIES_NAME CH2O(aq)
+      TYPE THRESHOLD 1.d15
+      INHIBITION_CONSTANT 1.d-10
+    /
+    INHIBITION
+      SPECIES_NAME NO3-
+      TYPE THRESHOLD 1.d15
+      INHIBITION_CONSTANT 1.d-10
+    /
+  /
+
+  MICROBIAL_REACTION
+    # neglect the 4/3 H+ consumption
+    REACTION CH2O(aq) + 4/3 NO2- <-> 2/3 N2(aq) + CO2(aq) + 5/3 H2O
+    RATE_CONSTANT 1.d-10
+    MONOD
+      SPECIES_NAME NO2-
+      HALF_SATURATION_CONSTANT 1.d-5
+    /
+    MONOD
+      SPECIES_NAME CH2O(aq)
+      HALF_SATURATION_CONSTANT 1.d-5
+    /
+    INHIBITION
+      SPECIES_NAME NO3-
+      TYPE THRESHOLD 1.d8
+      INHIBITION_CONSTANT -1.d-7
+    /
+    INHIBITION
+      SPECIES_NAME CH2O(aq)
+      TYPE THRESHOLD 1.d15
+      INHIBITION_CONSTANT 1.d-10
+    /
+    INHIBITION
+      SPECIES_NAME NO2-
+      TYPE THRESHOLD 1.d15
+      INHIBITION_CONSTANT 1.d-10
+    /
+  /
+
+END
+
+#=========================== times ============================================
+TIME
+  FINAL_TIME 100.d0 d
+  INITIAL_TIMESTEP_SIZE 1. s
+  MAXIMUM_TIMESTEP_SIZE 0.1 d
+END
+
+#=========================== specified velocity  ==============================
+SPECIFIED_VELOCITY
+  UNIFORM? YES
+  DATASET 1.d0 0.d0 0.d0 m/d
+END
+
+#=========================== constraints ======================================
+CONSTRAINT initial_constraint
+  CONCENTRATIONS
+    O2(aq)   3.125d-4 F
+    NO3-     1.613d-5 F
+    NO2-     1.d-10   F
+    N2(aq)   1.d-10   F
+    CH2O(aq) 3.667d-4 F
+    CO2(aq)  1.d-10   F
+  /
+END
+
+#=========================== discretization ===================================
+GRID
+  TYPE STRUCTURED
+  NXYZ 1000 1 1
+  BOUNDS
+    0.d0 0.d0 0.d0
+    100.d0 1.d0 1.d0
+  /
+END
+
+#=========================== material properties ==============================
+MATERIAL_PROPERTY soil1
+  ID 1
+  POROSITY 1.
+  TORTUOSITY 1.d0
+END
+
+#=========================== output options ===================================
+OUTPUT
+  FORMAT TECPLOT POINT
+END
+
+#=========================== observation points ===============================
+#OBSERVATION
+#  REGION entire_universe
+#END
+
+#=========================== regions ==========================================
+REGION entire_universe
+  COORDINATES
+    -1.d20 -1.e20 -1.d20
+     1.d20  1.d20  1.d20
+  /
+END
+
+REGION west
+  FACE WEST
+  COORDINATES
+    0.d0 -1.e20 -1.d20
+    0.d0  1.d20  1.d20
+  /
+END
+
+REGION east
+  FACE EAST
+  COORDINATES
+    100.d0 -1.e20 -1.d20
+    100.d0  1.d20  1.d20
+  /
+END
+
+#=========================== transport conditions =============================
+TRANSPORT_CONDITION background_conc
+  TYPE DIRICHLET_ZERO_GRADIENT
+  CONSTRAINT_LIST
+    0.d0 initial_constraint
+  /
+END
+
+#=========================== condition couplers ===============================
+INITIAL_CONDITION
+  TRANSPORT_CONDITION background_conc
+  REGION entire_universe
+END
+
+BOUNDARY_CONDITION inlet
+  TRANSPORT_CONDITION background_conc
+  REGION west
+END
+
+BOUNDARY_CONDITION outlet
+  TRANSPORT_CONDITION background_conc
+  REGION east
+END
+
+#=========================== stratigraphy couplers ============================
+STRATA
+  REGION entire_universe
+  MATERIAL soil1
+/
+
+#=========================== numerical methods ================================
+NUMERICAL_METHODS TRANSPORT
+  NEWTON_SOLVER
+    ATOL 1.d-11
+  /
+  LINEAR_SOLVER
+    SOLVER DIRECT
+  /
+END
+
+END_SUBSURFACE
