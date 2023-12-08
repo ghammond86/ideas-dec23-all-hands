@@ -17,12 +17,16 @@ if len(sys.argv) == 1:
     print('\nERROR: Please include the PFLOTRAN input prefix.')
     sys.exit(0)
 
+plotfig = False
+if len(sys.argv) > 2:
+    plotfig = (sys.argv[2] == 'plotfig')
+
 prefix = sys.argv[1]
 os.system(f'$PFLOTRAN_DIR/src/pflotran/pflotran -input_prefix {prefix} '+
           f'2>&1 > {prefix}.stdout')
 os.system(f'tail -30 {prefix}.stdout')
-savefig = True
 yscale = 'linear'
+savefig = (not plotfig)
 plot_results(prefix+'-obs-0.pft',yscale,savefig)
 yscale = 'log'
 plot_results(prefix+'-obs-0.pft',yscale,savefig)
